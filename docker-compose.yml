@@ -2,12 +2,13 @@ version: '3.8'
 
 services:
   apache:
-    image: httpd:2.4
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
     container_name: apache
     volumes:
-      - ./identity:/var/www/html/identity
-      - ./taskmanage:/var/www/html/taskmanage
-      - ./docker/apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
+      - ./identityManagement:/var/www/html/identityManagement
+      - ./taskManagement:/var/www/html/taskManagement
     ports:
       - "80:80"
     networks:
@@ -15,21 +16,21 @@ services:
 
   identity_app:
     build:
-      context: ./identity
+      context: ./identityManagement
       dockerfile: Dockerfile
     container_name: identity_app
     volumes:
-      - ./identity:/var/www/html
+      - ./identityManagement:/var/www/html/identityManagement
     networks:
       - app-network
 
   taskmanage_app:
     build:
-      context: ./taskmanage
+      context: ./taskManagement
       dockerfile: Dockerfile
     container_name: taskmanage_app
     volumes:
-      - ./taskmanage:/var/www/html
+      - ./taskManagement:/var/www/html/taskManagement
     networks:
       - app-network
 
