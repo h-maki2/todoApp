@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  apache:
+    image: httpd:2.4
+    container_name: apache
+    volumes:
+      - ./identity:/var/www/html/identity
+      - ./taskmanage:/var/www/html/taskmanage
+      - ./docker/apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+  identity_app:
+    build:
+      context: ./identity
+      dockerfile: Dockerfile
+    container_name: identity_app
+    volumes:
+      - ./identity:/var/www/html
+    networks:
+      - app-network
+
+  taskmanage_app:
+    build:
+      context: ./taskmanage
+      dockerfile: Dockerfile
+    container_name: taskmanage_app
+    volumes:
+      - ./taskmanage:/var/www/html
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - app-network
+    ports:
+      - "3306:3306"
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
