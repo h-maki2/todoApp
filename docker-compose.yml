@@ -3,7 +3,7 @@ version: '3.8'
 services:
   apache:
     build:
-      context: ./apache
+      context: .
       dockerfile: Dockerfile
     container_name: apache
     volumes:
@@ -11,26 +11,6 @@ services:
       - ./taskManagement:/var/www/html/taskManagement
     ports:
       - "80:80"
-    networks:
-      - app-network
-
-  identity_app:
-    build:
-      context: ./identityManagement
-      dockerfile: Dockerfile
-    container_name: identity_app
-    volumes:
-      - ./identityManagement:/var/www/html/identityManagement
-    networks:
-      - app-network
-
-  taskmanage_app:
-    build:
-      context: ./taskManagement
-      dockerfile: Dockerfile
-    container_name: taskmanage_app
-    volumes:
-      - ./taskManagement:/var/www/html/taskManagement
     networks:
       - app-network
 
