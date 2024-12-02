@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: apache
     volumes:
-      - ./identityManagement:/var/www/html/identityManagement
+      - ./identityAccess:/var/www/html/identityAccess
       - ./taskManagement:/var/www/html/taskManagement
     ports:
       - "80:80"
@@ -31,11 +31,11 @@ services:
   
   nextjs:
     image: node:18
-    container_name: nextjs
-    working_dir: /var/www/nextjs
+    container_name: identityAccess_frontend
+    working_dir: /var/www/identityAccess_frontend
     command: bash -c "npm install && npm run dev"
     volumes:
-      - ./nextjs:/var/www/nextjs
+      - ./identityAccess_frontend:/var/www/identityAccess_frontend
     ports:
       - "3000:3000"
     networks:
