@@ -1,6 +1,6 @@
-[submodule "identityManagement"]
-	path = identityManagement
-	url = https://github.com/h-maki2/identityManagement.git
 [submodule "taskManagement"]
 	path = taskManagement
 	url = https://github.com/h-maki2/taskManagement.git
+[submodule "identityAccess"]
+	path = identityAccess
+	url = https://github.com/h-maki2/identityAccess.git

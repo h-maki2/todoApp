@@ -28,6 +28,18 @@ services:
       - app-network
     ports:
       - "3306:3306"
+  
+  nextjs:
+    image: node:18
+    container_name: nextjs
+    working_dir: /var/www/nextjs
+    command: bash -c "npm install && npm run dev"
+    volumes:
+      - ./nextjs:/var/www/nextjs
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
 
 networks:
   app-network:
