@@ -18,6 +18,9 @@ RUN apt-get update && apt-get install -y \
 # Composer のインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+
 # Apacheの仮想ホスト設定をコピー
 COPY ./vhost.conf /etc/apache2/sites-available/000-default.conf
 

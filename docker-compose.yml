@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  nextjs:
+    image: node:18
+    container_name: identityaccess_frontend
+    working_dir: /var/www/identityaccess_frontend
+    command: bash -c "npm install && npm run dev"
+    volumes:
+      - ./identityaccess_frontend:/var/www/identityaccess_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
   apache:
     build:
       context: .
@@ -28,18 +40,6 @@ services:
       - app-network
     ports:
       - "3306:3306"
-  
-  nextjs:
-    image: node:18
-    container_name: identityAccess_frontend
-    working_dir: /var/www/identityAccess_frontend
-    command: bash -c "npm install && npm run dev"
-    volumes:
-      - ./identityAccess_frontend:/var/www/identityAccess_frontend
-    ports:
-      - "3000:3000"
-    networks:
-      - app-network
 
 networks:
   app-network:
