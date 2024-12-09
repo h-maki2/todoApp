@@ -5,5 +5,5 @@
 	path = identityAccess
 	url = https://github.com/h-maki2/identityAccess.git
 [submodule "identityaccess_frontend"]
-    path = identityaccess_frontend
-    url = https://github.com/h-maki2/identityaccess_frontend.git
+	path = identityaccess_frontend
+	url = https://github.com/h-maki2/identityaccess_frontend.git
