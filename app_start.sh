@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ ! -f "identityAccess/src/.env" ]; then 
+  if [ -f "identityAccess/src/.env.example" ]; then
+    cp identityAccess/src/.env.example identityAccess/src/.env
+  fi
+fi
+
 docker compose up --build -d
 
 sleep 15
