@@ -1,12 +1,8 @@
 #!/bin/bash
 
-if [ ! -f "identityAccess/.env" ]; then
-  if [ -f "identityAccess/.env.example" ]; then
-    cp .env.example .env
-  fi
-fi
+docker compose up --build -d
 
-docker-compose up --build -d
+sleep 15
 
 docker exec apache chmod -R 775 /var/www/html/identityAccess/src/storage
 
