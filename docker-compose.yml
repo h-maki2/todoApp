@@ -28,16 +28,35 @@ services:
     networks:
       - app-network
 
-  apache:
+  identity:
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/identityAccess/src/public
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: apache
+      args:
+        APACHE_DOCUMENT_ROOT: /var/www/html/identityAccess/src/public
+    container_name: identity
     volumes:
       - ./identityAccess:/var/www/html/identityAccess
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+  task:
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/taskManagement/src/public
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APACHE_DOCUMENT_ROOT: /var/www/html/taskManagement/src/public
+    container_name: task
+    volumes:
       - ./taskManagement:/var/www/html/taskManagement
     ports:
-      - "80:80"
+      - "8081:80"
     networks:
       - app-network
 

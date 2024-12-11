@@ -10,14 +10,27 @@ docker compose up --build -d
 
 sleep 15
 
-docker exec apache chmod -R 775 /var/www/html/identityAccess/src/storage
+docker exec identity chmod -R 775 /var/www/html/identityAccess/src/storage
 
-docker exec apache chmod -R 775 /var/www/html/identityAccess/src/bootstrap/cache
+docker exec identity chmod -R 775 /var/www/html/identityAccess/src/bootstrap/cache
 
-docker exec apache chown -R www-data:www-data /var/www/html/identityAccess/src/storage
+docker exec identity chown -R www-data:www-data /var/www/html/identityAccess/src/storage
 
-docker exec apache chown -R www-data:www-data /var/www/html/identityAccess/src/bootstrap/cache
+docker exec identity chown -R www-data:www-data /var/www/html/identityAccess/src/bootstrap/cache
 
-docker exec apache bash -c "cd /var/www/html/identityAccess/src && composer install"
+docker exec identity bash -c "cd /var/www/html/identityAccess/src && composer install"
 
-docker exec apache bash -c "cd /var/www/html/identityAccess/src && php artisan migrate"
+docker exec identity bash -c "cd /var/www/html/identityAccess/src && php artisan migrate"
+
+
+docker exec task chmod -R 775 /var/www/html/taskManagement/src/storage
+
+docker exec task chmod -R 775 /var/www/html/taskManagement/src/bootstrap/cache
+
+docker exec task chown -R www-data:www-data /var/www/html/taskManagement/src/storage
+
+docker exec task chown -R www-data:www-data /var/www/html/taskManagement/src/bootstrap/cache
+
+docker exec task bash -c "cd /var/www/html/taskManagement/src && composer install"
+
+docker exec task bash -c "cd /var/www/html/taskManagement/src && php artisan migrate"

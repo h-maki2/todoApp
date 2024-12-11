@@ -21,8 +21,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN a2enmod proxy
 RUN a2enmod proxy_http
 
-# Apacheの仮想ホスト設定をコピー
-COPY ./vhost.conf /etc/apache2/sites-available/000-default.conf
+ARG APACHE_DOCUMENT_ROOT
+ENV APACHE_DOCUMENT_ROOT=${APACHE_DOCUMENT_ROOT}
+
+RUN sed -i "s|DocumentRoot /var/www/html|DocumentRoot ${APACHE_DOCUMENT_ROOT}|" /etc/apache2/sites-available/000-default.conf
 
 # Apacheモジュールの有効化
 RUN a2enmod rewrite
