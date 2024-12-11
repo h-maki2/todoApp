@@ -8,7 +8,7 @@ fi
 
 docker compose up --build -d
 
-sleep 15
+sleep 20
 
 docker exec identity chmod -R 775 /var/www/html/identityAccess/src/storage
 
