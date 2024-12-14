@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  mysql:
+  identityaccess_mysql:
     image: mysql:8.0
-    container_name: mysql
+    container_name: identityaccess_mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: laravel_db
@@ -15,8 +15,23 @@ services:
       - app-network
     ports:
       - "3307:3306"
+  
+  taskmanage_mysql:
+    image: mysql:8.0
+    container_name: taskmanage_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_db_taskmanage
+      MYSQL_USER: user2
+      MYSQL_PASSWORD: password2
+    volumes:
+      - dbdata_taskmanage:/var/lib/mysql
+    networks:
+      - app-network
+    ports:
+      - "3308:3306"
       
-  nextjs:
+  identityacces_nextjs:
     image: node:18
     container_name: identityaccess_frontend
     working_dir: /var/www/identityaccess_frontend
@@ -25,6 +40,18 @@ services:
       - ./identityaccess_frontend:/var/www/identityaccess_frontend
     ports:
       - "3000:3000"
+    networks:
+      - app-network
+  
+  taskmanage_nextjs:
+    image: node:18
+    container_name: taskmanage_frontend
+    working_dir: /var/www/taskmanagement_frontend
+    command: bash -c "npm install && npm run dev"
+    volumes:
+      - ./taskmanagement_frontend:/var/www/taskmanagement_frontend
+    ports:
+      - "3001:3000"
     networks:
       - app-network
 
@@ -66,4 +93,6 @@ networks:
 
 volumes:
   dbdata:
+    driver: local
+  dbdata_taskmanage:
     driver: local
