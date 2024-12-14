@@ -7,3 +7,6 @@
 [submodule "identityaccess_frontend"]
 	path = identityaccess_frontend
 	url = https://github.com/h-maki2/identityaccess_frontend.git
+[submodule "taskmanagement_frontend"]
+	path = taskmanagement_frontend
+	url = https://github.com/h-maki2/taskmanagement_frontend.git
