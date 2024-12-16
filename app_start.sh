@@ -6,6 +6,12 @@ if [ ! -f "identityAccess/src/.env" ]; then
   fi
 fi
 
+if [ ! -f "taskManagement/src/.env" ]; then 
+  if [ -f "taskManagement/src/.env.example" ]; then
+    cp taskManagement/src/.env.example taskManagement/src/.env
+  fi
+fi
+
 docker compose up --build -d
 
 sleep 20
@@ -20,6 +26,8 @@ docker exec identity chown -R www-data:www-data /var/www/html/identityAccess/src
 
 docker exec identity bash -c "cd /var/www/html/identityAccess/src && composer install"
 
+docker exec identity bash -c "cd /var/www/html/identityAccess/src && php artisan key:generate"
+
 docker exec identity bash -c "cd /var/www/html/identityAccess/src && php artisan migrate"
 
 
@@ -32,5 +40,7 @@ docker exec task chown -R www-data:www-data /var/www/html/taskManagement/src/sto
 docker exec task chown -R www-data:www-data /var/www/html/taskManagement/src/bootstrap/cache
 
 docker exec task bash -c "cd /var/www/html/taskManagement/src && composer install"
+
+docker exec task bash -c "cd /var/www/html/taskManagement/src && php artisan key:generate"
 
 docker exec task bash -c "cd /var/www/html/taskManagement/src && php artisan migrate"
